@@ -1,55 +1,48 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import agent from '../../api/agent';
 import IUser from '../../api/models/user';
-import { useAppDispatch } from '../hooks/hooks';
-
-enum LOADING_STATE {
-  idle = 'idle',
-  pending = 'pending',
-}
+import LOADING_STATE from '../constants/common';
+import SLICES from '../constants/slices';
+import TYPE_PREFIXES from '../constants/typePrefixes';
 
 interface UsersState {
   users: IUser[];
   loading: LOADING_STATE;
+  error: string | null;
 }
 
 const initialState: UsersState = {
   users: [],
   loading: LOADING_STATE.idle,
+  error: null,
 };
 
+export const fetchUsers = createAsyncThunk(TYPE_PREFIXES.fetchUsers, async () => {
+  const response = await agent.Users.list();
+
+  return response.users;
+});
+
 export const usersSlice = createSlice({
-  name: 'users',
+  name: SLICES.users,
   initialState,
-  reducers: {
-    usersLoading: (state) => {
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(fetchUsers.pending, (state) => {
       if (state.loading === LOADING_STATE.idle) {
         state.loading = LOADING_STATE.pending;
       }
-    },
-    usersReceived: (state, action: PayloadAction<IUser[]>) => {
-      if (state.loading === LOADING_STATE.pending) {
-        state.loading = LOADING_STATE.idle;
-        state.users = action.payload;
-      }
-    },
+    });
+    builder.addCase(fetchUsers.fulfilled, (state, { payload }) => {
+      state.users = payload;
+      state.loading = LOADING_STATE.idle;
+      state.error = null;
+    });
+    builder.addCase(fetchUsers.rejected, (state) => {
+      state.error = 'Failed to fetch users';
+      state.loading = LOADING_STATE.idle;
+    });
   },
 });
-
-export const { usersLoading, usersReceived } = usersSlice.actions;
-
-export const fetchUsers =
-  () =>
-  async (dispatch = useAppDispatch()) => {
-    try {
-      dispatch(usersLoading());
-
-      const response = await agent.Users.list();
-
-      dispatch(usersReceived(response.users));
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
 export default usersSlice.reducer;
