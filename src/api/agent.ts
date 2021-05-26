@@ -19,7 +19,7 @@ const request = {
 };
 
 const Users = {
-  list: (): Promise<IUser[]> => request.get('/v3/ecb7eac3-9723-4ed9-bf47-f634b7a277cc'),
+  list: (): Promise<{ users: IUser[] }> => request.get('/v3/ecb7eac3-9723-4ed9-bf47-f634b7a277cc'),
 };
 
 export default {
