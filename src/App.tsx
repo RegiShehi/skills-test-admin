@@ -1,23 +1,14 @@
-import { useEffect, useState } from 'react';
-import agent from './api/agent';
-import IUser from './api/models/user';
+import { useEffect } from 'react';
+import { fetchUsers } from './redux/slices/userSlice';
+import { useAppDispatch, useAppSelector } from './redux/hooks/hooks';
 
 const App = () => {
-  const [users, setUsers] = useState<IUser[]>([]);
-
-  const fetchUsers = async () => {
-    try {
-      const data = await agent.Users.list();
-
-      setUsers(data.users);
-    } catch (error) {
-      console.log('Error: ', error);
-    }
-  };
+  const dispatch = useAppDispatch();
+  const users = useAppSelector((state) => state.usersReducer.users);
 
   useEffect(() => {
-    fetchUsers();
-  }, []);
+    dispatch(fetchUsers());
+  }, [dispatch]);
 
   return <>{users.map((user) => user.full_name)}</>;
 };
