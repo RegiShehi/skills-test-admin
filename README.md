@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Simple dash app
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
@@ -29,18 +29,58 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Step 1
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+create an `env` file with an env variable for the api endpoint named `REACT_APP_ENDPOINT` with `https://run.mocky.io` as value.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Step 2
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Set the axios default `baseURL` equal to our env variable `REACT_APP_ENDPOINT`.
 
-## Learn More
+Go to the `httpRequests` folder and open the `users.http.js` file and set `/v3/ecb7eac3-9723-4ed9-bf47-f634b7a277cc` as our request url.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Step 3
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Now we need to fetch our data. Go into the Users component and complete the function `getUsers` with an async code that
+call our `httpGetUsersList` api call.
+
+### Step 4
+
+Save fetched data in our existent redux store.
+
+### Step 5
+
+Render the data like our `list-sample.png` image into the src folder. you can style the rows using sass and grid css.
+Fell free to improve the result that you see in the sample image, and write your own style.
+If the returned data for an user contain an empty profile pic link fell free to replace it with a placeholder.
+
+### Step 6
+
+Now we would like to represent our user data in a single page, like a profile page.
+
+- Add a route and display the `UserDetails` component.
+
+- You must write from scratch this component. Here we need to navigate from our table, and pass an id as our new route param.
+
+- With this is we can find our user in the stored usersList.
+
+- Make your own style for this page.
+
+- handle refresh in this page, and properly refetch userslist when needed.
+
+### Step 7
+
+Now we would like add a new user to our list. We'll do so with redux and `react-hook-form`.
+
+- Add a route and display the `NewUser` page component.
+
+- You must write from scratch this component. Here we need to navigate from our route page maybe with an `add` button.
+
+- In this page we must have a form made with the popular `react-hook-form` library (you need to install it via yarn ),
+  with all the users fields needed. ( except for the photo_link ).
+
+- Add some style for this page, remember to use a sass file and grid css.
+
+- On form submit the user will be added to our list and visible in out main page.
