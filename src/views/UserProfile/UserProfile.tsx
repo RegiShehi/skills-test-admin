@@ -1,13 +1,19 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
-// import { RouteComponentProps } from 'react-router';
+import { RouteComponentProps } from 'react-router';
 
-// interface IProps extends RouteComponentProps {
-//   id: string;
-// }
+interface MatchParams {
+  id: string;
+}
 
-const UserProfile = (props: any) => {
-  console.log('props: ', props);
+interface IProps extends RouteComponentProps<MatchParams> {
+  id: string;
+}
+
+const UserProfile: React.FC<IProps> = ({ match }) => {
+  const { id } = match.params;
+
+  console.log('Id: ', id);
 
   return <div>User profile</div>;
 };
