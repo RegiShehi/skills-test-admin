@@ -6,6 +6,7 @@ import LOADING_STATE from '../../redux/constants/common';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/hooks';
 import { fetchUsers } from '../../redux/slices/userSlice';
 import styles from './Users.module.scss';
+import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
 
 const Users = () => {
   const dispatch = useAppDispatch();
@@ -16,7 +17,7 @@ const Users = () => {
   }, [dispatch]);
 
   if (loading === LOADING_STATE.pending) {
-    return <>Loading</>;
+    return <LoadingIndicator />;
   }
 
   if (error) {
