@@ -1,6 +1,5 @@
+// @use '../../assets/scss/Config.scss' as *;
+
 .mainContent {
-  max-width: 1200px;
   height: calc(100vh - 80px);
-  margin: 0 auto;
-  position: relative;
 }
