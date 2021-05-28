@@ -19,7 +19,12 @@ const Users = () => {
     return <>Error</>;
   }
 
-  return <>{users.map((user) => user.full_name)}</>;
+  return (
+    <>
+      <h3>Users list</h3>
+      <div>{users.map((user) => user.full_name)}</div>
+    </>
+  );
 };
 
 export default Users;

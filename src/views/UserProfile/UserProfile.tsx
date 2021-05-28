@@ -15,7 +15,7 @@ const UserProfile: React.FC<IProps> = ({ match }) => {
 
   console.log('Id: ', id);
 
-  return <div>User profile</div>;
+  return <h3>User profile</h3>;
 };
 
 export default UserProfile;
