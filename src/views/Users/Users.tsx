@@ -24,7 +24,7 @@ const Users = () => {
       <h3 className={styles.title}>Users List</h3>
       <Table hover responsive>
         <tbody>
-          {users.map((user) => (
+          {users?.map((user) => (
             <tr key={user.id}>
               <td>
                 <Image

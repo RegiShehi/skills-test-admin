@@ -8,8 +8,10 @@ const useGetUsers = () => {
   const { users, loading, error } = useAppSelector((state) => state.usersReducer);
 
   useEffect(() => {
-    dispatch(fetchUsers());
-  }, [dispatch]);
+    if (!users) {
+      dispatch(fetchUsers());
+    }
+  }, [dispatch, users]);
 
   return { users, loading, error };
 };

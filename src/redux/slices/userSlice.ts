@@ -6,13 +6,13 @@ import SLICES from '../constants/slices';
 import TYPE_PREFIXES from '../constants/typePrefixes';
 
 interface UsersState {
-  users: IUser[];
+  users: IUser[] | null;
   loading: LOADING_STATE;
   error: string | null;
 }
 
 const initialState: UsersState = {
-  users: [],
+  users: null,
   loading: LOADING_STATE.idle,
   error: null,
 };
