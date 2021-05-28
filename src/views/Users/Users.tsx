@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
 import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
+import { useHistory } from 'react-router-dom';
 import LOADING_STATE from '../../redux/constants/common';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/hooks';
 import { fetchUsers } from '../../redux/slices/userSlice';
@@ -10,6 +11,7 @@ import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator
 
 const Users = () => {
   const dispatch = useAppDispatch();
+  const history = useHistory();
   const { users, loading, error } = useAppSelector((state) => state.usersReducer);
 
   useEffect(() => {
@@ -43,7 +45,9 @@ const Users = () => {
               <td>{user.last_name}</td>
               <td>{user.last_name}</td>
               <td>
-                <Button variant="info">Profile</Button>
+                <Button variant="info" onClick={() => history.push(`users/${user.id}`)}>
+                  Profile
+                </Button>
               </td>
             </tr>
           ))}

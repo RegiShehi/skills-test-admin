@@ -13,9 +13,7 @@ interface IProps extends RouteComponentProps<MatchParams> {
 const UserProfile: React.FC<IProps> = ({ match }) => {
   const { id } = match.params;
 
-  console.log('Id: ', id);
-
-  return <h3>User profile</h3>;
+  return <h3>User profile: {id}</h3>;
 };
 
 export default UserProfile;
