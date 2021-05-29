@@ -10,7 +10,7 @@ import IUser from '../../api/models/user';
 import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
 import useGetUsers from '../../hooks/users';
 import LOADING_STATE from '../../redux/constants/common';
-import styles from './UserProfile.module.scss';
+import styles from './UserDetails.module.scss';
 
 interface MatchParams {
   id: string;
@@ -20,7 +20,7 @@ interface IProps extends RouteComponentProps<MatchParams> {
   id: string;
 }
 
-const UserProfile: React.FC<IProps> = ({ match }) => {
+const UserDetails: React.FC<IProps> = ({ match }) => {
   const { id } = match.params;
   const [selectedUser, setSelectedUser] = useState<IUser | null>(null);
   const { users, loading, error } = useGetUsers();
@@ -97,4 +97,4 @@ const UserProfile: React.FC<IProps> = ({ match }) => {
   );
 };
 
-export default UserProfile;
+export default UserDetails;

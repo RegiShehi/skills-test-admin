@@ -2,6 +2,7 @@ import Table from 'react-bootstrap/Table';
 import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
 import { useHistory } from 'react-router-dom';
+import Container from 'react-bootstrap/Container';
 import LOADING_STATE from '../../redux/constants/common';
 import styles from './Users.module.scss';
 import useGetUsers from '../../hooks/users';
@@ -20,7 +21,11 @@ const Users = () => {
   }
 
   return (
-    <div className={styles.usersContainer}>
+    <Container className={styles.usersContainer}>
+      <Button variant="success" onClick={() => history.push('/users/add')}>
+        Add user
+      </Button>
+
       <h3 className={styles.title}>Users List</h3>
       <Table hover responsive>
         <tbody>
@@ -46,7 +51,7 @@ const Users = () => {
           ))}
         </tbody>
       </Table>
-    </div>
+    </Container>
   );
 };
 
