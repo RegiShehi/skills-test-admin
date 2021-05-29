@@ -36,7 +36,7 @@ const Users = () => {
               <td>{user.email}</td>
               <td>{user.first_name}</td>
               <td>{user.last_name}</td>
-              <td>{user.last_name}</td>
+              {/* <td>{user.full_name}</td> */}
               <td>
                 <Button variant="info" onClick={() => history.push(`users/${user.id}`)}>
                   Profile

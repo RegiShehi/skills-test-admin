@@ -1,0 +1,90 @@
+@use '../../assets/scss/Config.scss' as *;
+
+.userProfileContainer {
+  padding: 50px 0;
+  position: relative;
+
+  img {
+    max-width: 100%;
+    vertical-align: middle;
+    border-style: none;
+
+    @include responsive(tablet) {
+      width: 100%;
+    }
+  }
+}
+
+/* About Me 
+---------------------*/
+.aboutText {
+  h3 {
+    font-size: 45px;
+    font-weight: 700;
+    margin: 0 0 6px;
+
+    @include responsive(tablet) {
+      font-size: 35px;
+      text-align: center;
+    }
+  }
+}
+
+.aboutText {
+  p {
+    font-size: 18px;
+    max-width: 450px;
+  }
+}
+
+.aboutList {
+  padding-top: 10px;
+}
+
+.aboutList {
+  .media {
+    padding: 5px 0;
+  }
+}
+
+.aboutList {
+  label {
+    color: #20247b;
+    font-weight: 600;
+    width: 100px;
+    margin: 0;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 11px;
+      width: 1px;
+      height: 12px;
+      background: #20247b;
+      -moz-transform: rotate(15deg);
+      -o-transform: rotate(15deg);
+      -ms-transform: rotate(15deg);
+      -webkit-transform: rotate(15deg);
+      transform: rotate(15deg);
+      margin: auto;
+      opacity: 0.5;
+    }
+  }
+}
+
+.aboutList {
+  p {
+    margin: 0;
+    font-size: 15px;
+    display: inline-block;
+  }
+}
+
+@media (max-width: 991px) {
+  .aboutAvatar {
+    margin-top: 30px;
+  }
+}

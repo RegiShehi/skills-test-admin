@@ -2,5 +2,9 @@
 
 .mainContent {
   height: calc(100vh - 80px);
-  padding: 2rem 0;
+  margin-top: 15px;
+
+  // @include responsive(tablet) {
+  //   margin: 15px 0;
+  // }
 }
