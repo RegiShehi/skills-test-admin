@@ -7,13 +7,14 @@ import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import { useHistory } from 'react-router';
 import { useState } from 'react';
+import DatePicker from 'react-datepicker';
 import styles from './NewUser.module.scss';
 
 interface IUserForm {
   email: string;
   first_name: string;
   last_name: string;
-  birth_date: string;
+  birth_date: Date;
   photo_link: string;
 }
 
@@ -23,12 +24,18 @@ const NewUser = () => {
     email: '',
     first_name: '',
     last_name: '',
-    birth_date: '',
+    birth_date: new Date(),
     photo_link: '',
   });
 
   const handleChange = (event: any) => {
     setFormValues((prevState) => ({ ...prevState, [event.target.name]: event.target.value }));
+  };
+
+  const handleBirthdayChange = (birthday: any) => {
+    if (birthday) {
+      setFormValues((prevState) => ({ ...prevState, birth_date: birthday }));
+    }
   };
 
   return (
@@ -78,7 +85,8 @@ const NewUser = () => {
             Birthday
           </Form.Label>
           <Col sm={10}>
-            <Form.Control type="text" placeholder="Birthday" name="birth_date" onChange={(e) => handleChange(e)} />
+            {/* <Form.Control type="text" placeholder="Birthday" name="birth_date" onChange={(e) => handleChange(e)} /> */}
+            <DatePicker selected={formValues.birth_date} onChange={(e) => handleBirthdayChange(e)} />
           </Col>
         </Form.Group>
 
