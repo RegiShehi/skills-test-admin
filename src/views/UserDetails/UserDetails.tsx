@@ -1,10 +1,10 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-import { RouteComponentProps, useHistory } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import Col from 'react-bootstrap/Col';
 import IUser from '../../api/models/user';
 import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
@@ -16,12 +16,9 @@ interface MatchParams {
   id: string;
 }
 
-interface IProps extends RouteComponentProps<MatchParams> {
-  id: string;
-}
+const UserDetails = () => {
+  const { id } = useParams<MatchParams>();
 
-const UserDetails: React.FC<IProps> = ({ match }) => {
-  const { id } = match.params;
   const [selectedUser, setSelectedUser] = useState<IUser | null>(null);
   const { users, loading, error } = useGetUsers();
   const history = useHistory();
