@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable camelcase */
 /* eslint-disable import/no-extraneous-dependencies */
 import Col from 'react-bootstrap/Col';
@@ -6,37 +7,27 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import { useHistory } from 'react-router';
-import { useState } from 'react';
-import DatePicker from 'react-datepicker';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import styles from './NewUser.module.scss';
 
-interface IUserForm {
+type Inputs = {
   email: string;
   first_name: string;
   last_name: string;
   birth_date: Date;
   photo_link: string;
-}
+};
 
 const NewUser = () => {
   const history = useHistory();
-  const [formValues, setFormValues] = useState<IUserForm>({
-    email: '',
-    first_name: '',
-    last_name: '',
-    birth_date: new Date(),
-    photo_link: '',
-  });
 
-  const handleChange = (event: any) => {
-    setFormValues((prevState) => ({ ...prevState, [event.target.name]: event.target.value }));
-  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>();
 
-  const handleBirthdayChange = (birthday: any) => {
-    if (birthday) {
-      setFormValues((prevState) => ({ ...prevState, birth_date: birthday }));
-    }
-  };
+  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
 
   return (
     <Container className={styles.addUserContainer}>
@@ -46,19 +37,28 @@ const NewUser = () => {
 
       <h3 className={styles.title}>Add new user</h3>
 
-      <Form
-        onSubmit={(e) => {
-          e.preventDefault();
-
-          console.log('Form values: ', formValues);
-        }}
-      >
+      <Form noValidate onSubmit={handleSubmit(onSubmit)}>
         <Form.Group as={Row} controlId="formHorizontalEmail">
           <Form.Label column sm={2}>
             Email
           </Form.Label>
           <Col sm={10}>
-            <Form.Control placeholder="Email" name="email" onChange={(e) => handleChange(e)} />
+            <Form.Control
+              placeholder="Email"
+              defaultValue=""
+              {...register('email', {
+                required: {
+                  value: true,
+                  message: 'This field is required',
+                },
+                pattern: {
+                  value: /\S+@\S+\.\S+/,
+                  message: 'Entered value does not match email format',
+                },
+              })}
+              isInvalid={!!errors.email}
+            />
+            {errors.email && <Form.Control.Feedback type="invalid">{errors.email.message}</Form.Control.Feedback>}
           </Col>
         </Form.Group>
 
@@ -67,7 +67,21 @@ const NewUser = () => {
             First Name
           </Form.Label>
           <Col sm={10}>
-            <Form.Control type="text" placeholder="First name" name="first_name" onChange={(e) => handleChange(e)} />
+            <Form.Control
+              type="text"
+              placeholder="First name"
+              defaultValue=""
+              {...register('first_name', {
+                required: {
+                  value: true,
+                  message: 'This field is required',
+                },
+              })}
+              isInvalid={!!errors.first_name}
+            />
+            {errors.first_name && (
+              <Form.Control.Feedback type="invalid">{errors.first_name.message}</Form.Control.Feedback>
+            )}
           </Col>
         </Form.Group>
 
@@ -76,7 +90,21 @@ const NewUser = () => {
             Last Name
           </Form.Label>
           <Col sm={10}>
-            <Form.Control type="text" placeholder="Last name" name="last_name" onChange={(e) => handleChange(e)} />
+            <Form.Control
+              type="text"
+              placeholder="Last name"
+              defaultValue=""
+              {...register('last_name', {
+                required: {
+                  value: true,
+                  message: 'This field is required',
+                },
+              })}
+              isInvalid={!!errors.last_name}
+            />
+            {errors.last_name && (
+              <Form.Control.Feedback type="invalid">{errors.last_name.message}</Form.Control.Feedback>
+            )}
           </Col>
         </Form.Group>
 
@@ -85,8 +113,20 @@ const NewUser = () => {
             Birthday
           </Form.Label>
           <Col sm={10}>
-            {/* <Form.Control type="text" placeholder="Birthday" name="birth_date" onChange={(e) => handleChange(e)} /> */}
-            <DatePicker selected={formValues.birth_date} onChange={(e) => handleBirthdayChange(e)} />
+            <Form.Control
+              type="date"
+              defaultValue=""
+              {...register('birth_date', {
+                required: {
+                  value: true,
+                  message: 'This field is required',
+                },
+              })}
+              isInvalid={!!errors.birth_date}
+            />
+            {errors.birth_date && (
+              <Form.Control.Feedback type="invalid">{errors.birth_date.message}</Form.Control.Feedback>
+            )}
           </Col>
         </Form.Group>
 
@@ -95,7 +135,7 @@ const NewUser = () => {
             Profile picture
           </Form.Label>
           <Col sm={10}>
-            <Form.Control type="text" placeholder="Link" name="photo_link" onChange={(e) => handleChange(e)} />
+            <Form.Control placeholder="Link" type="text" defaultValue="" {...register('photo_link')} />
           </Col>
         </Form.Group>
 
