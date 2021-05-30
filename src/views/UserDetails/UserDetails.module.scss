@@ -27,9 +27,7 @@
       text-align: center;
     }
   }
-}
 
-.aboutText {
   p {
     font-size: 18px;
     max-width: 450px;
@@ -38,45 +36,20 @@
 
 .aboutList {
   padding-top: 10px;
-}
 
-.aboutList {
   .media {
     padding: 5px 0;
   }
-}
 
-.aboutList {
   label {
     color: #20247b;
     font-weight: 600;
-    width: 100px;
     margin: 0;
     position: relative;
-
-    &::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      right: 11px;
-      width: 1px;
-      height: 12px;
-      background: #20247b;
-      -moz-transform: rotate(15deg);
-      -o-transform: rotate(15deg);
-      -ms-transform: rotate(15deg);
-      -webkit-transform: rotate(15deg);
-      transform: rotate(15deg);
-      margin: auto;
-      opacity: 0.5;
-    }
   }
-}
 
-.aboutList {
   p {
-    margin: 0;
+    margin: 0 0 0 10px;
     font-size: 15px;
     display: inline-block;
   }
