@@ -24,10 +24,13 @@ const NewUser = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    reset();
+  };
 
   return (
     <Container className={styles.addUserContainer}>
