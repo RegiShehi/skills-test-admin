@@ -9,6 +9,12 @@ import Container from 'react-bootstrap/Container';
 import { useHistory } from 'react-router';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import styles from './NewUser.module.scss';
+import useGetUsers from '../../hooks/users';
+import LOADING_STATE from '../../redux/constants/common';
+import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
+import { useAppDispatch } from '../../redux/hooks/hooks';
+import IUser from '../../api/models/user';
+import { addUser } from '../../redux/slices/userSlice';
 
 type Inputs = {
   email: string;
@@ -20,6 +26,9 @@ type Inputs = {
 
 const NewUser = () => {
   const history = useHistory();
+  const dispatch = useAppDispatch();
+
+  const { users, loading, error } = useGetUsers();
 
   const {
     register,
@@ -29,8 +38,26 @@ const NewUser = () => {
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
+    const result: IUser = {
+      ...data,
+      full_name: `${data.first_name} ${data.last_name}`,
+      id: users ? users.length + 1 : 1,
+    };
+
+    dispatch(addUser(result));
+
     reset();
+
+    history.push('/');
   };
+
+  if (loading === LOADING_STATE.pending) {
+    return <LoadingIndicator />;
+  }
+
+  if (error) {
+    return <>Error</>;
+  }
 
   return (
     <Container className={styles.addUserContainer}>

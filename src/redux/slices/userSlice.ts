@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import agent from '../../api/agent';
 import IUser from '../../api/models/user';
 import LOADING_STATE from '../constants/common';
@@ -26,7 +26,11 @@ export const fetchUsers = createAsyncThunk(TYPE_PREFIXES.fetchUsers, async () =>
 export const usersSlice = createSlice({
   name: SLICES.users,
   initialState,
-  reducers: {},
+  reducers: {
+    addUser: (state, action: PayloadAction<IUser>) => {
+      state.users = state.users ? [...state.users, action.payload] : [action.payload];
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchUsers.pending, (state) => {
       if (state.loading === LOADING_STATE.idle) {
@@ -44,5 +48,7 @@ export const usersSlice = createSlice({
     });
   },
 });
+
+export const { addUser } = usersSlice.actions;
 
 export default usersSlice.reducer;
